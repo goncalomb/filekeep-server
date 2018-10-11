@@ -7,6 +7,15 @@ from server import files
 
 app = Flask(__name__)
 
+@app.context_processor
+def main_processor():
+    return {
+        'nav': [
+            ('Index', 'r_index'),
+            ('Files', 'r_files'),
+        ],
+    }
+
 @app.route('/')
 def r_index():
     return render_template('index.html')

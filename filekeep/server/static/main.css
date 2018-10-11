@@ -1,0 +1,37 @@
+@import url(https://cdn.jsdelivr.net/npm/chota@0.5.1/dist/chota.min.css);
+
+body {
+    overflow-y: scroll;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+header, footer {
+    background-color: #f2f2f2;
+}
+
+footer {
+    margin-top: 1rem;
+    padding: 1rem 0;
+}
+
+footer p:last-child {
+    margin-bottom: 0;
+}
+
+.nav .brand {
+    padding-left: 0;
+}
+
+td, th {
+    padding: .4rem;
+}
+
+tbody tr:hover {
+    background-color: #eee;
+}

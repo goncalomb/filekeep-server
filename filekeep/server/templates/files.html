@@ -3,18 +3,40 @@
 {% block title %}Files - /{{ path }}{% endblock %}
 
 {% block main %}
-<p>{{ base_path }}</p>
-<p>{{ path }}</p>
+<h1>Files</h1>
 {% if not_found %}
-    <p>File not found.</p>
+    <p class="text-error">File not found.</p>
 {% elif entry.is_dir %}
-    <p>size: {{ entry.size }}, mtime: {{ entry.mtime }}{% if path %}, <a href="..">parent</a>{% endif %}</p>
-    <ul>
-    {% for e in entries %}
-        <li><a href="{{ e.name }}{% if e.is_dir %}/{% endif %}">{{ e.name }}</a></li>
-    {% endfor %}
-    </ul>
+    <p class="text-grey"><strong>/{{ path }}</strong></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Last Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if path %}
+                <tr>
+                    <td>(<a href="..">go up</a>)</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endif %}
+            {% for e in entries %}
+                <tr>
+                    <td><a href="{{ e.name|urlencode }}{% if e.is_dir %}/{% endif %}">{{ e.name }}{% if e.is_dir %}/{% endif %}</a></td>
+                    <td>{% if e.is_dir %}-{% else %}{{ e.size }}{% endif %}</td>
+                    <td>{{ e.mtime }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% else %}
-    <p>size: {{ entry.size }}, mtime: {{ entry.mtime }}, <a href="?dl=1">download</a></p>
+    <p class="text-grey"><strong>/{{ path }}</strong></p>
+    <p>Size: {{ entry.size }}</p>
+    <p>Last Modified: {{ entry.mtime }}</p>
+    <p><a class="button" href="?dl=1">Download</a></p>
 {% endif %}
 {% endblock %}
