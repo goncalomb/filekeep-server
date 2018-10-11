@@ -5,4 +5,16 @@
 {% block main %}
 <p>{{ base_path }}</p>
 <p>{{ path }}</p>
+{% if not_found %}
+    <p>File not found.</p>
+{% elif entry.is_dir %}
+    <p>size: {{ entry.size }}, mtime: {{ entry.mtime }}{% if path %}, <a href="..">parent</a>{% endif %}</p>
+    <ul>
+    {% for e in entries %}
+        <li><a href="{{ e.name }}{% if e.is_dir %}/{% endif %}">{{ e.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>size: {{ entry.size }}, mtime: {{ entry.mtime }}, <a href="?dl=1">download</a></p>
+{% endif %}
 {% endblock %}
