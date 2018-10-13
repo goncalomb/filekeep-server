@@ -3,9 +3,18 @@ from flask import request, render_template, redirect, send_file, safe_join
 
 import os
 
+from filekeep import utils
 from server import files
 
 app = Flask(__name__)
+
+@app.template_filter()
+def format_size(size):
+    return utils.format_size(size)
+
+@app.template_filter()
+def format_timestamp_nano(t):
+    return utils.format_timestamp(t // 1e9)
 
 @app.context_processor
 def main_processor():

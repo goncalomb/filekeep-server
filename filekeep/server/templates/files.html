@@ -27,16 +27,16 @@
             {% for e in entries %}
                 <tr>
                     <td><a href="{{ e.name|urlencode }}{% if e.is_dir %}/{% endif %}">{{ e.name }}{% if e.is_dir %}/{% endif %}</a></td>
-                    <td>{% if e.is_dir %}-{% else %}{{ e.size }}{% endif %}</td>
-                    <td>{{ e.mtime }}</td>
+                    <td><span title="{{ entry.size }} bytes">{% if e.is_dir %}-{% else %}{{ e.size|format_size }}{% endif %}</span></td>
+                    <td>{{ e.mtime|format_timestamp_nano }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 {% else %}
     <p class="text-grey"><strong>/{{ path }}</strong></p>
-    <p>Size: {{ entry.size }}</p>
-    <p>Last Modified: {{ entry.mtime }}</p>
+    <p>Size: {{ entry.size|format_size }} ({{ entry.size }} bytes)</p>
+    <p>Last Modified: {{ entry.mtime|format_timestamp_nano }}</p>
     <p><a class="button" href="?dl=1">Download</a></p>
 {% endif %}
 {% endblock %}
